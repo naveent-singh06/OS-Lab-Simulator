@@ -1,0 +1,45 @@
+
+/* Basic SpringButton Styles */
+
+.spring-button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: #1e293b;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.16);
+}
+
+
+.spring-button:hover {
+  background: #0f172a;
+  transform: translateY(-2px);
+}
+
+
+.spring-button:active {
+  background: #0a0f1c;
+  transform: translateY(1px);
+}
+
+
+.spring-button:disabled {
+  background: #334155;
+  color: #94a3b8;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.spring-button-text {
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+}

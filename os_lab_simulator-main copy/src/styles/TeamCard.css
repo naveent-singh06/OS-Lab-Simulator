@@ -1,0 +1,658 @@
+/* Main container for flip cards - REMOVE FLOAT TO FIX ROW ISSUE */
+.maincontainer {
+    width: 400px; /* Increased from 302px */
+    height: 400px; /* Increased from 299px */
+    margin: 15px;
+    /* REMOVED: float: left; - This was causing the wrapping issue */
+    position: relative;
+    cursor: pointer;
+    filter: drop-shadow(0 8px 25px rgba(0, 0, 0, 0.15));
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0; /* Prevent shrinking in flex container */
+}
+
+.maincontainer:hover {
+    transform: translateY(-5px);
+    filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.25));
+}
+
+img {
+    border-radius: 12px;
+    width: 100%; /* Ensure full width */
+    height: 100%; /* Ensure full height */
+    object-fit: cover;
+    transition: all 0.3s ease;
+}
+
+.back h2 {
+    font-weight: 700;
+    font-size: 1.8rem; /* Increased font size */
+    position: absolute;
+    top: 15px; /* Fixed positioning */
+    left: 15px;
+    margin: 0;
+    padding: 20px; /* Increased padding */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: calc(100% - 70px); /* Adjusted width */
+    text-align: center;
+    letter-spacing: 0.5px;
+    z-index: 10;
+}
+
+.back p {
+    position: absolute;
+    padding: 25px 20px; /* Increased padding */
+    top: 120px; /* Adjusted top position */
+    left: 15px;
+    text-align: justify;
+    font-size: 18px; /* Increased font size */
+    line-height: 1.6;
+    margin: 0;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(5px);
+    width: calc(100% - 70px); /* Adjusted width */
+    height: calc(100% - 180px); /* Added height constraint */
+    overflow-y: auto; /* Allow scrolling if content is too long */
+    z-index: 10;
+}
+
+/* FIXED: Name overlay positioned INSIDE flip container */
+.name-overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    font-size: 1.5rem; /* Increased font size */
+    font-weight: 700;
+    padding: 15px 25px; /* Increased padding */
+    color: #d1f90a;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6));
+    backdrop-filter: blur(10px);
+    border-radius: 25px;
+    border: 1px solid rgba(209, 249, 10, 0.3);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    z-index: 15; /* Higher z-index */
+    pointer-events: none;
+    margin: 0;
+    max-width: calc(100% - 80px); /* Prevent overflow */
+}
+
+.maincontainer:hover .name-overlay {
+    background: linear-gradient(135deg, rgba(209, 249, 10, 0.2), rgba(209, 249, 10, 0.1));
+    transform: scale(1.05);
+}
+
+/* Remove the ::after pseudo-element method */
+.maincontainer::after {
+    display: none;
+}
+
+/* Remove old front h2 styles that were causing flipping */
+.front-1 h2,
+.front-2 h2,
+.front-3 h2 {
+    display: none;
+}
+
+/* Card 1 flip animation - UPDATED DIMENSIONS */
+.maincontainer-1 > .front {
+    position: absolute;
+    transform: perspective(1000px) rotateY(0deg);
+    width: 400px; /* Updated width */
+    height: 400px; /* Updated height */
+    backface-visibility: hidden;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.maincontainer-1:hover > .front {
+    transform: perspective(1000px) rotateY(-180deg);
+}
+
+.maincontainer-1 > .back {
+    position: absolute;
+    transform: perspective(1000px) rotateY(180deg);
+    background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+    color: #fff;
+    width: 400px; /* Updated width */
+    height: 400px; /* Updated height */
+    border-radius: 12px;
+    padding: 5px;
+    box-sizing: border-box;
+    backface-visibility: hidden;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.maincontainer-1 > .back::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.05) 50%, transparent 70%);
+    pointer-events: none;
+}
+
+.maincontainer-1:hover > .back {
+    transform: perspective(1000px) rotateY(0deg);
+}
+
+/* Card 2 flip animation - UPDATED DIMENSIONS */
+.maincontainer-2 > .front {
+    position: absolute;
+    transform: perspective(1000px) rotateY(0deg);
+    width: 400px; /* Updated width */
+    height: 400px; /* Updated height */
+    backface-visibility: hidden;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.maincontainer-2:hover > .front {
+    transform: perspective(1000px) rotateY(180deg);
+}
+
+.maincontainer-2 > .back {
+    position: absolute;
+    transform: perspective(1000px) rotateY(-180deg);
+    background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+    color: #fff;
+    width: 400px; /* Updated width */
+    height: 400px; /* Updated height */
+    border-radius: 12px;
+    padding: 5px;
+    box-sizing: border-box;
+    backface-visibility: hidden;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.maincontainer-2 > .back::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.05) 50%, transparent 70%);
+    pointer-events: none;
+}
+
+.maincontainer-2:hover > .back {
+    transform: perspective(1000px) rotateY(0deg);
+}
+
+/* Card 3 flip animation - NEW ADDITION */
+.maincontainer-3 > .front {
+    position: absolute;
+    transform: perspective(1000px) rotateY(0deg);
+    width: 400px;
+    height: 400px;
+    backface-visibility: hidden;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.maincontainer-3:hover > .front {
+    transform: perspective(1000px) rotateY(-180deg);
+}
+
+.maincontainer-3 > .back {
+    position: absolute;
+    transform: perspective(1000px) rotateY(180deg);
+    background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+    color: #fff;
+    width: 400px;
+    height: 400px;
+    border-radius: 12px;
+    padding: 5px;
+    box-sizing: border-box;
+    backface-visibility: hidden;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.maincontainer-3 > .back::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.05) 50%, transparent 70%);
+    pointer-events: none;
+}
+
+.maincontainer-3:hover > .back {
+    transform: perspective(1000px) rotateY(0deg);
+}
+
+/* Social media section - Enhanced positioning */
+.big-box {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    clear: both;
+    padding: 20px 0;
+    background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.02), transparent);
+}
+
+.container-1,
+.container-2,
+.container-3 {
+    position: relative;
+    background: transparent;
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    margin: 25px 0;
+}
+
+/* Enhanced social media card styling */
+.container .card {
+    position: relative;
+    margin-bottom: 15px;
+    width: 200px;
+    overflow: visible;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.container .card:hover {
+    transform: translateY(-8px);
+}
+
+.container .card .face {
+    width: 200px;
+    height: 200px;
+    border-radius: 12px;
+}
+
+.container .card .face.face1 {
+    position: relative;
+    background: linear-gradient(135deg, #404040, #2a2a2a);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.container .card .face.face1::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.container .card:hover .face.face1 {
+    background: linear-gradient(135deg, #4a4a4a, #363636);
+    transform: scale(1.02);
+}
+
+.container .card:hover .face.face1::before {
+    opacity: 1;
+}
+
+.container .card .face.face1 > h1 {
+    margin: 0;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    letter-spacing: 0.5px;
+}
+
+.bg-face > h1 {
+    color: aqua;
+    text-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+}
+
+.container .card .face.face2 {
+    position: absolute;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(250, 250, 250, 0.95));
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 25px 20px;
+    box-sizing: border-box;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 200px;
+    border-radius: 12px;
+    z-index: 2;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.container .card:hover .face.face2 {
+    display: flex;
+    animation: fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container .card .face.face2 .content p {
+    margin: 0 0 12px 0;
+    padding: 0;
+    text-align: center;
+    color: #555;
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 400;
+}
+
+.container .card .face.face2 .content h3 {
+    margin: 0 0 18px 0;
+    padding: 0;
+    font-size: 18px;
+    text-align: center;
+    color: #333;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.container a {
+    text-decoration: none;
+    color: #414141;
+    transition: all 0.3s ease;
+}
+
+.container .card .face.face2 a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(0, 123, 255, 0.1), rgba(0, 123, 255, 0.05));
+    border: 1px solid rgba(0, 123, 255, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-top: 5px;
+    display: inline-block;
+}
+
+.container .card .face.face2 a:hover {
+    color: #fff;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 123, 255, 0.3);
+}
+
+.social-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    gap: 1.4rem;
+    font-size: 2rem;
+}
+
+.social-link > a {
+    color: rgb(22, 70, 5);
+    transition: all 0.3s ease;
+    padding: 8px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(22, 70, 5, 0.1), rgba(22, 70, 5, 0.05));
+}
+
+.social-link > a:hover {
+    color: rgb(34, 100, 8);
+    background: linear-gradient(135deg, rgba(22, 70, 5, 0.2), rgba(22, 70, 5, 0.1));
+    transform: scale(1.1);
+}
+
+.content > h3 > a {
+    font-weight: 700;
+}
+
+/* Enhanced utility classes */
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Footer positioning with improved spacing */
+.footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: auto;
+    clear: both;
+    z-index: 10;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.page-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1;
+}
+
+.footer-spacing {
+    margin-top: 50px;
+    clear: both;
+    padding-bottom: 30px;
+}
+
+/* Keep all three members in same row - FORCE SINGLE ROW LAYOUT */
+.team {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: nowrap; /* NEVER wrap - always keep in one row */
+    margin-top: 2rem;
+    padding: 0 1rem;
+    gap: 1.5rem; /* Good spacing between cards */
+    width: 100%;
+    overflow: hidden; /* NO horizontal scroll - force fit */
+}
+
+/* Ensure the parent container uses flexbox properly */
+.our-team-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.our-team-container .team {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    width: 100%;
+    max-width: 1400px;
+}
+
+/* For very large screens - optimal spacing */
+@media (min-width: 1400px) {
+    .team {
+        gap: 2rem;
+        max-width: 1400px;
+        margin: 2rem auto 0;
+    }
+    
+    .maincontainer {
+        width: 400px;
+        height: 400px;
+        flex-shrink: 0;
+    }
+}
+
+/* For large screens - comfortable fit */
+@media (max-width: 1399px) and (min-width: 1200px) {
+    .team {
+        gap: 1.5rem;
+        max-width: 1300px;
+        margin: 2rem auto 0;
+    }
+    
+    .maincontainer {
+        width: 380px;
+        height: 380px;
+        flex-shrink: 0;
+    }
+}
+
+/* For medium screens - compact but still same row */
+@media (max-width: 1199px) and (min-width: 900px) {
+    .team {
+        gap: 1rem;
+        max-width: 1100px;
+        margin: 2rem auto 0;
+    }
+    
+    .maincontainer {
+        width: 350px;
+        height: 350px;
+        flex-shrink: 0;
+    }
+}
+
+/* For smaller screens - very compact but STILL same row */
+@media (max-width: 899px) and (min-width: 600px) {
+    .team {
+        gap: 0.5rem;
+        margin: 2rem auto 0;
+        padding: 0 0.5rem;
+    }
+    
+    .maincontainer {
+        width: 280px;
+        height: 280px;
+        flex-shrink: 0;
+        margin: 10px;
+    }
+    
+    /* Adjust card content for smaller cards */
+    .maincontainer-1 > .front,
+    .maincontainer-1 > .back,
+    .maincontainer-2 > .front,
+    .maincontainer-2 > .back,
+    .maincontainer-3 > .front,
+    .maincontainer-3 > .back {
+        width: 280px;
+        height: 280px;
+    }
+    
+    .back h2 {
+        font-size: 1.4rem;
+        padding: 15px;
+    }
+    
+    .back p {
+        font-size: 14px;
+        padding: 15px;
+        top: 90px;
+    }
+}
+
+/* For very small screens - mini cards but STILL in same row */
+@media (max-width: 599px) {
+    .team {
+        gap: 0.3rem;
+        margin: 2rem auto 0;
+        padding: 0 0.3rem;
+        justify-content: flex-start; /* Allow left alignment if needed */
+    }
+    
+    .maincontainer {
+        width: 200px;
+        height: 200px;
+        flex-shrink: 0;
+        margin: 5px;
+    }
+    
+    /* Adjust all card dimensions for mini size */
+    .maincontainer-1 > .front,
+    .maincontainer-1 > .back,
+    .maincontainer-2 > .front,
+    .maincontainer-2 > .back,
+    .maincontainer-3 > .front,
+    .maincontainer-3 > .back {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .back h2 {
+        font-size: 1rem;
+        padding: 8px;
+        top: 8px;
+        left: 8px;
+        width: calc(100% - 36px);
+    }
+    
+    .back p {
+        font-size: 11px;
+        padding: 8px;
+        top: 60px;
+        left: 8px;
+        width: calc(100% - 36px);
+        height: calc(100% - 100px);
+        line-height: 1.3;
+    }
+    
+    /* Adjust social cards for mobile */
+    .container .card,
+    .container .card .face {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .container .card .face.face1 > h1 {
+        font-size: 0.9rem;
+    }
+    
+    .social-link {
+        gap: 0.8rem;
+        font-size: 1.2rem;
+    }
+}
